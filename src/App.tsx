@@ -1,24 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { PostForm } from "./components/Posts/PostForm/PostForm";
+import { PostList } from "./components/Posts/PostList/PostList";
+
+type PostType = {
+  id: number;
+  name: string;
+  description: string;
+};
 
 function App() {
+  let [posts, setPosts] = useState<Array<PostType>>([
+    {
+      id: 1,
+      name: "JavaScript",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, earum impedit consequuntur repudiandae, nemo error quasi accusantium vitae nobis aut similique, commodi odit obcaecati dolorum nostrum reiciendis ratione asperiores sequi.Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, earum impedit consequuntur repudiandae, nemo error quasi accusantium vitae nobis aut similique, commodi odit obcaecati dolorum nostrum reiciendis ratione asperiores sequi.Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, earum impedit consequuntur repudiandae, nemo error quasi accusantium vitae nobis aut similique, commodi odit obcaecati dolorum nostrum reiciendis ratione asperiores sequi.",
+    },
+    {
+      id: 2,
+      name: "Python",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, earum impedit consequuntur repudiandae, nemo error quasi accusantium vitae nobis aut similique, commodi odit obcaecati dolorum nostrum reiciendis ratione asperiores sequi.Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, earum impedit consequuntur repudiandae, nemo error quasi accusantium ",
+    },
+    {
+      id: 3,
+      name: "C++",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, earum impedit consequuntur repudiandae, nemo error quasi accusantium vitae nobis aut similique, commodi odit obcaecati dolorum nostrum reiciendis ratione asperiores sequi.Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, earum impedit consequuntur repudiandae, nemo error quasi accusantium ",
+    },
+    {
+      id: 4,
+      name: "C#",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, earum impedit consequuntur repudiandae, nemo error quasi accusantium vitae nobis aut similique, commodi odit obcaecati dolorum nostrum reiciendis ratione asperiores sequi.Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, earum impedit consequuntur repudiandae, nemo error quasi accusantium ",
+    },
+  ]);
+  let createPosts = (newPost: PostType) => {
+    setPosts([...posts, newPost]);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <PostForm createPosts={createPosts} />
+
+      <PostList posts={posts} title="Список ЯП" />
     </div>
   );
 }

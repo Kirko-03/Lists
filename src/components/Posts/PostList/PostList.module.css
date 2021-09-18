@@ -1,0 +1,7 @@
+.postList{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  max-width: 60%;
+}
