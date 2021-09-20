@@ -1,40 +1,57 @@
-import React, { useState } from "react"
-import { MyButton } from "../../UI/myButtons/myButton"
-import { MyInput } from "../../UI/myInputs/myInput"
+import React, { useState } from "react";
+import { MyButton } from "../../UI/Buttons/myButton";
+import { MyInput } from "../../UI/Inputs/myInput";
 type PostType = {
-  id:number
+  id: string;
   name: string;
   description: string;
+  
 };
 
-type PostFormPropsType={
-  createPosts:(newPost:PostType)=>void
-}
-export const PostForm:React.FC<PostFormPropsType> = (props) =>{
+type PostFormPropsType = {
+  setActive: (active: boolean) => void;
+  createPost: (newPost: PostType) => void;
+};
+export const PostForm: React.FC<PostFormPropsType> = (props) => {
   let [newPost, setNewPost] = useState({ name: "", description: "" });
+  let [error, setError] = useState<boolean>(false);
   let post = {
-    ...newPost,id:Date.now()
-  }
-  const addPost = () => {
-    setNewPost({ name: "", description: "" })
-    props.createPosts(post)
+    ...newPost,
+    id: String(Date.now()),
   };
-  return  <div>
-        <MyInput
-        type="text"
-        value={newPost.name}
-        onChange={(e) => setNewPost({ ...newPost, name: e.target.value })}
-        placeholder="name post"
-      />
-     
+  const addPost = () => {
+    setError(true);
+    if (newPost.name.length !== 0 && newPost.description.length !== 0) {
+      props.setActive(false)
+      setError(false);
+      setNewPost({ name: "", description: "" });
+      props.createPost(post);
+    }
+  };
+  const errorStyle = {
+    border: error ? "1px solid red" : "1px solid black",
+    
+  };
+  return (
+    <div>
       <MyInput
         type="text"
+        style={errorStyle}
+        value={newPost.name}
+        onChange={(e) => setNewPost({ ...newPost, name: e.target.value })}
+        placeholder={error ? "name post not found" : "name post"}
+      />
+
+      <MyInput
+        type="text"
+        style={errorStyle}
         value={newPost.description}
         onChange={(e) =>
           setNewPost({ ...newPost, description: e.target.value })
         }
-        placeholder="description post"
+        placeholder={error ? "description post not found" : "description post"}
       />
       <MyButton onClick={addPost}>add post</MyButton>
     </div>
-}
+  );
+};
