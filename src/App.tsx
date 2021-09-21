@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, {useState } from "react";
 
 import "./App.css";
 import { usePosts } from "./components/hooks/usePosts";
@@ -48,15 +48,7 @@ function App() {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, earum impedit consequuntur repudiandae, nemo error quasi accusantium vitae nobis aut similique, commodi odit obcaecati dolorum nostrum reiciendis ratione asperiores sequi.Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, earum impedit consequuntur repudiandae, nemo error quasi accusantium ",
     },
   ]);
-  const sortedPosts = useMemo(() => {
-    if (filter.sort) {
-      return [...posts].sort((a, b) =>
-        a[filter.sort].localeCompare(b[filter.sort])
-      );
-    }
-    
-    return posts
-  }, [filter.sort,posts])
+  const sortedPosts=usePosts(filter.sort,posts,filter.query)
 
   let createPost = (newPost: PostType) => {
     setPosts([...posts, newPost]);
