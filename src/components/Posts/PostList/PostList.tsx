@@ -1,16 +1,12 @@
+import { PostType } from "../../../App";
 import { Posts } from "./PostsItem/Posts";
 
 const style = require("./PostList.module.css");
 
-type PostType = {
-  id: string;
-  name: string;
-  description: string;
-};
 
 type PostListType = {
   removePost:(post:PostType)=>void
-  posts: any
+  posts: Array<PostType>
   title: string;
 };
 

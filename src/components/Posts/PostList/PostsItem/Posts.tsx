@@ -1,20 +1,16 @@
 import React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { PostType } from "../../../../App";
 import { MyButton } from "../../../UI/Buttons/myButton";
 import './../../../../styles/styles.css'
 const style = require("./Posts.module.css");
 
-type PostsType = {
-  id: string;
-  name: string;
-  description: string;
-};
 
-type PostType = {
-  removePost: (post: PostsType) => void;
-  posts: Array<PostsType>;
+type PostsType = {
+  removePost: (post: PostType) => void;
+  posts: Array<PostType>;
 };
-export const Posts: React.FC<PostType> = (props) => {
+export const Posts: React.FC<PostsType> = (props) => {
   return (
     
       <div>
@@ -24,9 +20,9 @@ export const Posts: React.FC<PostType> = (props) => {
             <div>
               <div className={style.post}>
                 <strong>
-                  {index + 1}.{post.name}
+                  {index + 1}.{post.title}
                 </strong>
-                {post.description}
+                {post.body}
               </div>
               <MyButton onClick={() => props.removePost(post)}>
                 Удалить

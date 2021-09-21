@@ -1,30 +1,24 @@
 import React, { useState } from "react";
+import { PostType } from "../../../App";
 import { MyButton } from "../../UI/Buttons/myButton";
 import { MyInput } from "../../UI/Inputs/myInput";
-type PostType = {
-  id: string;
-  name: string;
-  description: string;
-  
-};
-
 type PostFormPropsType = {
   setActive: (active: boolean) => void;
   createPost: (newPost: PostType) => void;
 };
 export const PostForm: React.FC<PostFormPropsType> = (props) => {
-  let [newPost, setNewPost] = useState({ name: "", description: "" });
+  let [newPost, setNewPost] = useState({ title: "", body: "" });
   let [error, setError] = useState<boolean>(false);
   let post = {
     ...newPost,
-    id: String(Date.now()),
+    id: Date.now(),
   };
   const addPost = () => {
     setError(true);
-    if (newPost.name.length !== 0 && newPost.description.length !== 0) {
+    if (newPost.title.length !== 0 && newPost.body.length !== 0) {
       props.setActive(false)
       setError(false);
-      setNewPost({ name: "", description: "" });
+      setNewPost({ title: "",body: "" });
       props.createPost(post);
     }
   };
@@ -37,17 +31,17 @@ export const PostForm: React.FC<PostFormPropsType> = (props) => {
       <MyInput
         type="text"
         style={errorStyle}
-        value={newPost.name}
-        onChange={(e) => setNewPost({ ...newPost, name: e.target.value })}
+        value={newPost.title}
+        onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
         placeholder={error ? "name post not found" : "name post"}
       />
 
       <MyInput
         type="text"
         style={errorStyle}
-        value={newPost.description}
+        value={newPost.body}
         onChange={(e) =>
-          setNewPost({ ...newPost, description: e.target.value })
+          setNewPost({ ...newPost, body: e.target.value })
         }
         placeholder={error ? "description post not found" : "description post"}
       />
