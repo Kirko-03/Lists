@@ -1,5 +1,5 @@
 import React from "react"
-import { FilterType } from "../../../App"
+import { FilterType } from "../Posts"
 import { MyInput } from "../../UI/Inputs/myInput"
 import { MySelect } from "../../UI/Select/MySelect"
 type PostFilterType = {

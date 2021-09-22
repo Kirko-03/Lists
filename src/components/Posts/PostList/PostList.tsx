@@ -1,5 +1,5 @@
-import { PostType } from "../../../App";
-import { Posts } from "./PostsItem/Posts";
+import { PostType } from "../Posts";
+import { PostsItem } from "./PostsItem/PostsItem";
 
 const style = require("./PostList.module.css");
 
@@ -14,7 +14,7 @@ export const PostList: React.FC<PostListType> = (props) => {
   return (
     <div className={style.postList}>
       {props.posts.length?<h1>{props.title}</h1>:<h1>Posts not found</h1>}
-      <Posts removePost={props.removePost} posts={props.posts} />  
+      <PostsItem removePost={props.removePost} posts={props.posts} />  
     </div>
   );
 };

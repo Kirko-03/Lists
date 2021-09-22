@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { PostType } from "../../App";
+import { PostType } from "../Posts/Posts";
 
 export const useSortedPosts = (sort: string, posts: Array<PostType>) => {
   const sortedPosts = useMemo(() => {

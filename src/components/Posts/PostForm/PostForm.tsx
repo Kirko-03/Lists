@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PostType } from "../../../App";
+import { PostType } from "../Posts";
 import { MyButton } from "../../UI/Buttons/myButton";
 import { MyInput } from "../../UI/Inputs/myInput";
 type PostFormPropsType = {

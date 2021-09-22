@@ -1,16 +1,16 @@
 import React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { PostType } from "../../../../App";
+import { PostType } from "../../Posts";
 import { MyButton } from "../../../UI/Buttons/myButton";
 import './../../../../styles/styles.css'
-const style = require("./Posts.module.css");
+const style = require("./PostsItem.module.css");
 
 
 type PostsType = {
   removePost: (post: PostType) => void;
   posts: Array<PostType>;
 };
-export const Posts: React.FC<PostsType> = (props) => {
+export const PostsItem: React.FC<PostsType> = (props) => {
   return (
     
       <div>

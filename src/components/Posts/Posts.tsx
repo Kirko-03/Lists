@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import "./App.css";
-import { postsAPI } from "./components/API/postsAPI";
-import { useFetching } from "./components/hooks/useFetching";
-import { usePosts } from "./components/hooks/usePosts";
-import { PostForm } from "./components/Posts/PostForm/PostForm";
-import { PostFilter } from "./components/Posts/PostList/PostFilter";
-import { PostList } from "./components/Posts/PostList/PostList";
-import { MyButton } from "./components/UI/Buttons/myButton";
-import { Loader } from "./components/UI/Loader/Loader";
-import { MyModal } from "./components/UI/Modals/MyModal";
-import { getPagesCount, Pagination } from "./components/utils/Paginator";
+import "./Posts.css";
+import { postsAPI } from "../API/postsAPI";
+import { useFetching } from "../hooks/useFetching";
+import { usePosts } from "../hooks/usePosts";
+import { PostForm } from "./PostForm/PostForm";
+import { PostFilter } from "./PostList/PostFilter";
+import { PostList } from "./PostList/PostList";
+import { MyButton } from "../UI/Buttons/myButton";
+import { Loader } from "../UI/Loader/Loader";
+import { MyModal } from "../UI/Modals/MyModal";
+import { getPagesCount, Pagination } from "../utils/Paginator";
 
 export type PostType = {
   [key: string]: any;
@@ -23,7 +23,7 @@ export type FilterType = {
   query: string;
 };
 
-function App() {
+function Posts() {
   let [activeModal, setActiveModal] = useState<boolean>(false);
   let [filter, setFilter] = useState<FilterType>({ sort: "", query: "" });
   let [posts, setPosts] = useState<Array<PostType>>([]);
@@ -81,4 +81,4 @@ function App() {
   );
 }
 
-export default App;
+export default Posts;
