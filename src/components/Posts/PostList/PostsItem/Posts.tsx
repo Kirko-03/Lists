@@ -15,12 +15,12 @@ export const Posts: React.FC<PostsType> = (props) => {
     
       <div>
         <TransitionGroup>
-        {props.posts.map((post, index) => (
+        {props.posts.map((post) => (
           <CSSTransition key={post.id} timeout={300} classNames={'post'}>
             <div>
               <div className={style.post}>
                 <strong>
-                  {index + 1}.{post.title}
+                  {post.id}.{post.title}
                 </strong>
                 {post.body}
               </div>
