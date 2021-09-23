@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 export const useFetching = (callback:(...args:any)=>any) =>{
-    let [isLoading,setIsLoading] = useState<boolean>(true)
+    let [isLoading,setIsLoading] = useState(true)
     let [error,setError] = useState('')
       async function fetchPosts(...args:any){
           try{
@@ -15,5 +15,5 @@ export const useFetching = (callback:(...args:any)=>any) =>{
             setIsLoading(false)
            }
         }
-        return {isLoading,error,fetchPosts}
+        return [isLoading,error,fetchPosts]
 }

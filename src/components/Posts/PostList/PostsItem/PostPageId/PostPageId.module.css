@@ -1,0 +1,15 @@
+
+.head{
+margin:20px;
+text-align: center;
+}
+.error{
+    color: red;
+}
+.comments{
+margin:50px
+}
+.comment{
+    margin:10px;    
+    border: 5px darkorchid double;
+}

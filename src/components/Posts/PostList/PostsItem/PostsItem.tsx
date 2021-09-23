@@ -3,6 +3,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { PostType } from "../../Posts";
 import { MyButton } from "../../../UI/Buttons/myButton";
 import './../../../../styles/styles.css'
+import { useHistory, useParams } from "react-router-dom";
 const style = require("./PostsItem.module.css");
 
 
@@ -11,6 +12,8 @@ type PostsType = {
   posts: Array<PostType>;
 };
 export const PostsItem: React.FC<PostsType> = (props) => {
+  let history = useHistory()
+  console.log(history)
   return (
     
       <div>
@@ -24,9 +27,12 @@ export const PostsItem: React.FC<PostsType> = (props) => {
                 </strong>
                 {post.body}
               </div>
+              <div className={style.buttons}>
+              <MyButton onClick={()=> history.push(`/postPage/${post.id}`)}>Открыть пост</MyButton>
               <MyButton onClick={() => props.removePost(post)}>
                 Удалить
               </MyButton>
+              </div>
             </div>
             </CSSTransition>
         ))}

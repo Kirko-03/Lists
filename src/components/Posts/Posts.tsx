@@ -32,10 +32,9 @@ function Posts() {
   let [page, setPage] = useState<number>(1);
 
   const sortedPosts = usePosts(filter.sort, posts, filter.query);
-  let { isLoading, error, fetchPosts } = useFetching(async (limit,page) => {
+  let [isLoading, error, fetchPosts] = useFetching(async (limit,page) => {
     const response = await postsAPI.fetchPosts(limit, page);
     setPosts(response.data);
-    console.log(response);
     let totalCount = response.headers["x-total-count"];
     setTotalPages(getPagesCount(totalCount, limit));
   });
@@ -43,6 +42,7 @@ function Posts() {
     setPosts([newPost, ...posts]);
   };
   useEffect(() => {
+    //@ts-ignore
     fetchPosts(limit,page);
   }, [page]);
   let removePost = (thisPost: PostType) => {
