@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import "./Posts.css";
 import { postsAPI } from "../API/postsAPI";
@@ -11,6 +11,7 @@ import { MyButton } from "../UI/Buttons/myButton";
 import { Loader } from "../UI/Loader/Loader";
 import { MyModal } from "../UI/Modals/MyModal";
 import { getPagesCount, Pagination } from "../utils/Paginator";
+import { useObserver } from "../hooks/useObserver";
 
 export type PostType = {
   [key: string]: any;
@@ -28,23 +29,27 @@ function Posts() {
   let [filter, setFilter] = useState<FilterType>({ sort: "", query: "" });
   let [posts, setPosts] = useState<Array<PostType>>([]);
   let [totalPages, setTotalPages] = useState<number>(0);
-  let limit = 10
+  let [limit,setLimit] = useState<number>(10)
   let [page, setPage] = useState<number>(1);
-
+  let lastElement = useRef<any>()
+  console.log(lastElement);
   const sortedPosts = usePosts(filter.sort, posts, filter.query);
-  let [isLoading, error, fetchPosts] = useFetching(async (limit,page) => {
+  let  [isPostsLoading, error, fetchPosts] = useFetching(async (limit,page) => {
     const response = await postsAPI.fetchPosts(limit, page);
     setPosts(response.data);
     let totalCount = response.headers["x-total-count"];
     setTotalPages(getPagesCount(totalCount, limit));
   });
+  useObserver(lastElement,page<totalPages,isPostsLoading,()=>{
+    setPage(page+1)
+  })
   let createPost = (newPost: PostType) => {
     setPosts([newPost, ...posts]);
   };
   useEffect(() => {
     //@ts-ignore
-    fetchPosts(limit,page);
-  }, [page]);
+    fetchPosts().then(res=>res);
+  }, [page,limit]);
   let removePost = (thisPost: PostType) => {
     setPosts(posts.filter((post) => post.id !== thisPost.id));
   };
@@ -67,16 +72,18 @@ function Posts() {
         Create Post
       </MyButton>
       {error && <h2 style={{ color: "red" }}>Произошла ошибка {error}</h2>}
-      {isLoading ? (
+      
+      {isPostsLoading ? (
         <Loader />
       ) : (
-        <PostList
+       <div><PostList
           removePost={removePost}
           posts={sortedPosts}
           title="Список ЯП"
-        />
+        /> <div ref={lastElement} style={{height: '20px', backgroundColor:'white'}}/></div> 
       )}
-      <Pagination totalPages={totalPages} page={page} setPage={setPage} />
+      
+            <Pagination totalPages={totalPages} page={page} setPage={setPage} />
     </div>
   );
 }

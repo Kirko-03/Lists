@@ -28,7 +28,7 @@ export const PostsItem: React.FC<PostsType> = (props) => {
                 {post.body}
               </div>
               <div className={style.buttons}>
-              <MyButton onClick={()=> history.push(`/postPage/${post.id}`)}>Открыть пост</MyButton>
+              <MyButton onClick={()=> history.push(`/posts/${post.id}`)}>Открыть пост</MyButton>
               <MyButton onClick={() => props.removePost(post)}>
                 Удалить
               </MyButton>
